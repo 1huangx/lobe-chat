@@ -44,6 +44,7 @@ export interface ChatTopicAction {
   updateTopicTitle: (id: string, title: string) => Promise<void>;
   useFetchTopics: (sessionId: string) => SWRResponse<ChatTopic[]>;
   useSearchTopics: (keywords?: string) => SWRResponse<ChatTopic[]>;
+  useFetchAllTopics: () => void;
 }
 
 export const chatTopic: StateCreator<
@@ -154,6 +155,17 @@ export const chatTopic: StateCreator<
         },
       },
     ),
+  // make a func to get all topics with async getAllTopics() {
+  useFetchAllTopics: async () => {
+    // const topicData = await topicService.getAllTopics();
+    // set({ topics: topicData, topicsInit: true }, false, n('useFetchAllTopics(success)'));
+    useClientDataSWR<ChatTopic[]>([SWR_USE_FETCH_TOPIC], async () => topicService.getAllTopics(), {
+      onSuccess: (topics) => {
+        set({ topics, topicsInit: true }, false, n('useFetchAllTopics(success)'));
+      },
+    });
+  },
+
   useSearchTopics: (keywords) =>
     useSWR<ChatTopic[]>(
       [SWR_USE_SEARCH_TOPIC, keywords],

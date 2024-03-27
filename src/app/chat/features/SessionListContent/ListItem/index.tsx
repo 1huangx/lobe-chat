@@ -1,7 +1,7 @@
-import { Avatar, List, ListItemProps } from '@lobehub/ui';
+import { List, ListItemProps } from '@lobehub/ui';
 import { useHover } from 'ahooks';
 import { createStyles, useResponsive } from 'antd-style';
-import { memo, useMemo, useRef } from 'react';
+import { memo, useRef } from 'react';
 
 const { Item } = List;
 
@@ -24,31 +24,32 @@ const useStyles = createStyles(({ css, token, responsive }) => {
   };
 });
 
-const ListItem = memo<ListItemProps & { avatar: string; avatarBackground?: string }>(
-  ({ avatar, avatarBackground, active, showAction, actions, ...props }) => {
+const ListItem = memo<ListItemProps & { avatar?: string; avatarBackground?: string }>(
+  // ({ avatar, avatarBackground, active, showAction, actions, ...props }) => {
+  ({ active, showAction, actions, ...props }) => {
     const ref = useRef(null);
     const isHovering = useHover(ref);
     const { mobile } = useResponsive();
     const { styles } = useStyles();
 
-    const avatarRender = useMemo(
-      () => (
-        <Avatar
-          animation={isHovering}
-          avatar={avatar}
-          background={avatarBackground}
-          shape="circle"
-          size={46}
-        />
-      ),
-      [isHovering, avatar, avatarBackground],
-    );
+    // const avatarRender = useMemo(
+    //   () => (
+    //     <Avatar
+    //       animation={isHovering}
+    //       avatar={avatar}
+    //       background={avatarBackground}
+    //       shape="circle"
+    //       size={46}
+    //     />
+    //   ),
+    //   [isHovering, avatar, avatarBackground],
+    // );
 
     return (
       <Item
         actions={actions}
         active={mobile ? false : active}
-        avatar={avatarRender}
+        // avatar={avatarRender}
         className={styles.container}
         ref={ref}
         showAction={actions && (isHovering || showAction)}

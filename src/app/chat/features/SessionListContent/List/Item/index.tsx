@@ -26,24 +26,24 @@ const SessionItem = memo<SessionItemProps>(({ id }) => {
   const [active] = useSessionStore((s) => [s.activeId === id]);
   const [loading] = useChatStore((s) => [!!s.chatLoadingId && id === s.activeId]);
 
-  const [pin, title, description, systemRole, avatar, avatarBackground, updateAt, model, group] =
-    useSessionStore((s) => {
-      const session = sessionSelectors.getSessionById(id)(s);
-      const meta = session.meta;
-      const systemRole = session.config.systemRole;
+  // const [pin, title, description, systemRole, avatar, avatarBackground, updateAt, model, group] =
+  const [pin, title, description, systemRole, updateAt, model, group] = useSessionStore((s) => {
+    const session = sessionSelectors.getSessionById(id)(s);
+    const meta = session.meta;
+    const systemRole = session.config.systemRole;
 
-      return [
-        sessionHelpers.getSessionPinned(session),
-        agentSelectors.getTitle(meta),
-        agentSelectors.getDescription(meta),
-        systemRole,
-        agentSelectors.getAvatar(meta),
-        meta.backgroundColor,
-        session?.updatedAt,
-        session.config.model,
-        session?.group,
-      ];
-    });
+    return [
+      sessionHelpers.getSessionPinned(session),
+      agentSelectors.getTitle(meta),
+      agentSelectors.getDescription(meta),
+      systemRole,
+      // agentSelectors.getAvatar(meta),
+      // meta.backgroundColor,
+      session?.updatedAt,
+      session.config.model,
+      session?.group,
+    ];
+  });
 
   const showModel = model !== defaultModel;
 
@@ -75,8 +75,8 @@ const SessionItem = memo<SessionItemProps>(({ id }) => {
         actions={actions}
         active={active}
         addon={addon}
-        avatar={avatar}
-        avatarBackground={avatarBackground}
+        // avatar={avatar}
+        // avatarBackground={avatarBackground}
         date={updateAt}
         description={description || systemRole}
         loading={loading}

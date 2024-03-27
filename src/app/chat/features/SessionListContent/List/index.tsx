@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { memo } from 'react';
 import LazyLoad from 'react-lazy-load';
 
+import Topic from '@/app/chat/features/TopicListContent/Topic';
 import { SESSION_CHAT_URL } from '@/const/url';
 import { useSessionStore } from '@/store/session';
 import { sessionSelectors } from '@/store/session/selectors';
@@ -48,6 +49,9 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
           }}
         >
           <SessionItem id={id} />
+          <div style={{ height: 150 }}>
+            <Topic sessionId={id} />
+          </div>
         </Link>
       </LazyLoad>
     ))

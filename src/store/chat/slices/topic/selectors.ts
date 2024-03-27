@@ -9,8 +9,14 @@ const currentActiveTopic = (s: ChatStore): ChatTopic | undefined => {
 };
 const searchTopics = (s: ChatStore): ChatTopic[] => s.searchTopics;
 
-const displayTopics = (s: ChatStore): ChatTopic[] =>
-  s.isSearchingTopic ? searchTopics(s) : currentTopics(s);
+// make a func to select only the topics of given session id
+const currentTopicsBySessionId =
+  (sessionId: string) =>
+  (s: ChatStore): ChatTopic[] =>
+    currentTopics(s).filter((topic) => topic.sessionId === sessionId);
+
+const displayTopics = (s: ChatStore, sessionId: string): ChatTopic[] =>
+  s.isSearchingTopic ? searchTopics(s) : currentTopicsBySessionId(sessionId)(s);
 
 const currentUnFavTopics = (s: ChatStore): ChatTopic[] => s.topics.filter((s) => !s.favorite);
 
@@ -25,6 +31,7 @@ export const topicSelectors = {
   currentActiveTopic,
   currentTopicLength,
   currentTopics,
+  currentTopicsBySessionId,
   currentUnFavTopics,
   displayTopics,
   getTopicById,

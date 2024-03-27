@@ -15,7 +15,7 @@ import { ChatTopic } from '@/types/topic';
 import { Placeholder, SkeletonList } from './SkeletonList';
 import TopicItem from './TopicItem';
 
-export const Topic = memo(() => {
+export const Topic = memo(({ sessionId }: { sessionId: string }) => {
   const { t } = useTranslation('chat');
   const virtuosoRef = useRef<VirtuosoHandle>(null);
   const { isDarkMode } = useThemeMode();
@@ -31,12 +31,12 @@ export const Topic = memo(() => {
 
   const topics = useChatStore(
     (s) => [
-      {
-        favorite: false,
-        id: 'default',
-        title: t('topic.defaultTitle'),
-      } as ChatTopic,
-      ...topicSelectors.displayTopics(s),
+      // {
+      //   favorite: false,
+      //   id: 'default',
+      //   title: t('topic.defaultTitle'),
+      // } as ChatTopic,
+      ...topicSelectors.displayTopics(s, sessionId),
     ],
     isEqual,
   );
@@ -94,3 +94,5 @@ export const Topic = memo(() => {
     </Flexbox>
   );
 });
+
+export default Topic;

@@ -2,7 +2,6 @@ import { memo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
 import Header from './Header';
-import { Topic } from './Topic';
 import TopicSearchBar from './TopicSearchBar';
 
 const TopicListContent = memo<{ mobile?: boolean }>(({ mobile }) => {
@@ -15,7 +14,7 @@ const TopicListContent = memo<{ mobile?: boolean }>(({ mobile }) => {
         paddingInline={mobile ? 0 : 8}
         style={{ paddingTop: 6, position: 'relative' }}
       >
-        <Topic />
+        {/* <Topic sessionId = {id}/> */}
       </Flexbox>
     </Flexbox>
   );

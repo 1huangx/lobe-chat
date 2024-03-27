@@ -13,11 +13,13 @@ export const useInitConversation = () => {
     s.activeTopicId,
     s.switchTopic,
     s.useFetchMessages,
-    s.useFetchTopics,
+    // s.useFetchTopics,
+    s.useFetchAllTopics,
   ]);
 
   useFetchMessages(sessionId, activeTopicId);
-  useFetchTopics(sessionId);
+  // useFetchTopics(sessionId);
+  useFetchTopics();
 
   const [useFetchPluginStore, useFetchInstalledPlugins, checkPluginsIsInstalled] = useToolStore(
     (s) => [s.useFetchPluginStore, s.useFetchInstalledPlugins, s.useCheckPluginsIsInstalled],
